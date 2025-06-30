@@ -25,13 +25,8 @@ https://freshgo-app.vercel.app/
 - **Backend**: Python FastAPI
 - **Vercel to deploy frontened 
 - **Render to deploy backened 
-## Team Members
-- Eustache Katembo
-- Victor Muriuki
-- John Chege
-- Grace Ndunda
-- Mark Githire
-- Yasir Mohammed
+## Team 
+- Victor Gitonga
 
 ## Installation Instructions
 To set up freshGo on your local machine, follow these steps:
