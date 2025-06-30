@@ -1,67 +1,39 @@
-import React,{useState} from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import SignupA from "./components/signupA";
-import AdminDashboard from "./components/Admin/AdminDashboard";
-import ProtectedRoute from "./components/Protectedroute";
-import CustomerDashboard from "./components/Customer/CustomerDashboard";
-import CustomerService from "./components/CustomerService/CustomerServiceDashboard";
-import VideoBackground from "./components/videoBackground";
-import GetQuote from "./components/Getquote";
-import Footer from "./components/Footer";
+
+import './App.css';
+import './components/style.css';
+import { Route, Routes } from 'react-router-dom';
+import RouterPage from '../src/components/RouterPage';
+import Cart from './components/cart/Cart'
+import { useState } from 'react';
+import Buy from './components/AfterPurchase/Buy';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import Recipes from './components/recipes/recipes';
+import NotFound from './components/404/404';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Logout from './components/Logout';
+
 function App() {
-  
-  const [userRole,setUserRole]=useState(localStorage.getItem('role'))
+  const[info,setInfo]=useState([])
+  const handleInfo=(item)=>{
+    setInfo(item)
+  }
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={
-            <>
-              <VideoBackground/>
-              <GetQuote />
-              <Footer/>
-            </>
-            } />
-          <Route path="/login" element={<Login setUserRole={setUserRole}/>} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signupA" element={<SignupA />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute
-                userRole={userRole}
-                allowedRoles={["admin"]}
-                element={<AdminDashboard />}
-              />
-            }
-          />
-          <Route
-            path="/customer-service"
-            element={
-              <ProtectedRoute
-                userRole={userRole}
-                allowedRoles={["customer_service"]}
-                element={<CustomerService/>}
-              />
-            }
-          />
-          <Route
-            path="/customer"
-            element={
-              <ProtectedRoute
-                userRole={userRole}
-                allowedRoles={["customer"]}
-                element={<CustomerDashboard/>}
-              />
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
+    <div className="overflow-x-hidden">
+      <ToastContainer position="top-center" autoClose={3000} />
+      <Routes>
+        <Route path='/logout' element={<Logout/>} />
+        <Route path='/signup' element={<Signup/>} />
+        <Route path='/' element={<Login/>} />
+        <Route path='/home' element={<RouterPage handleInfo={handleInfo} info={info}/>} />
+        <Route path='cart' element={<Cart info={info} setInfo={setInfo} />} />        
+        <Route path='buy' element={<Buy/>} /> 
+        <Route path='recipes' element={<Recipes/>} />
+        <Route path='*' element={<NotFound/>} />
+      </Routes>
+      
+    </div>
   );
 }
 
